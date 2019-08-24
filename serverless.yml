@@ -1,0 +1,47 @@
+# serverless.yml
+
+service: ${self:custom.config.service_name}
+
+plugins:
+  - serverless-python-requirements
+ 
+
+package:
+  exclude:
+    - .**/**
+    - **
+    - ./**
+    - .**/*~
+    - ./*~
+  include:
+    - import.py
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+    fileName: requirements.txt
+    useStaticCache: true
+
+
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: us-west-1
+  # timeout should be changed when we go live
+  timeout: 60
+  environment:
+    CREDENTIAL: ${self:custom.config.credential}
+    CERTIFICATE_ARN: ${self:custom.config.certificate_arn}
+  deploymentBucket: ${self:custom.config.deployment_bucket}
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "acm:DescribeCertificate"
+         - "acm:ImportCertificate"
+      
+functions:
+  import:
+    handler: import.serverless_handler
+    events:
+      - schedule: rate(1 day)
