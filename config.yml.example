@@ -5,7 +5,7 @@ credential:
 certificate_arn:
 
 # email address for the certification
-email_address:n
+email_address:
 
 # grace period for renewal (renew with this number of days of expiration, defaults to 10)
 # renewal_graceperiod: 30
