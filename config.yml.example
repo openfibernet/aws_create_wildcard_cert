@@ -8,10 +8,10 @@ certificate_arn:
 email_address:n
 
 # grace period for renewal (renew with this number of days of expiration, defaults to 10)
-# RENEWAL_GRACEPERIOD: 30
+# renewal_graceperiod: 30
 
 # S3 path to put certs (so others can use them)
-S3_URI: 
+s3_uri: 
 
 # bucket to deploy to
 deployment_bucket: 
