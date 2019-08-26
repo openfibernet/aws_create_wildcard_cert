@@ -1,2 +1,3 @@
 boto3
-certbot-dns-dnssimple
+certbot-dns-dnsimple
+certbot

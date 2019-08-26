@@ -1,0 +1,17 @@
+# credential for dns servert
+credential: 
+
+# the certificate arn to be renewed
+certificate_arn:
+
+# email address for the certification
+email_address:n
+
+# grace period for renewal (renew with this number of days of expiration, defaults to 10)
+# RENEWAL_GRACEPERIOD: 30
+
+# S3 path to put certs (so others can use them)
+S3_URI: 
+
+# bucket to deploy to
+deployment_bucket: 

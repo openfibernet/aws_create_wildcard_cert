@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: ${self:custom.config.service_name}
+service: aws-create-wildcard-cert
 
 plugins:
   - serverless-python-requirements
@@ -9,7 +9,6 @@ plugins:
 package:
   exclude:
     - .**/**
-    - **
     - ./**
     - .**/*~
     - ./*~
@@ -21,6 +20,7 @@ custom:
     dockerizePip: non-linux
     fileName: requirements.txt
     useStaticCache: true
+  config: ${file(${env:CONFIG_FILE, 'config.yml'})}
 
 
 
@@ -29,16 +29,26 @@ provider:
   runtime: python3.6
   region: us-west-1
   # timeout should be changed when we go live
-  timeout: 60
+  timeout: 300
   environment:
     CREDENTIAL: ${self:custom.config.credential}
     CERTIFICATE_ARN: ${self:custom.config.certificate_arn}
+    EMAIL_ADDRESS: ${self:custom.config.email_address}
+    RENEWAL_GRACEPERIOD: ${self:custom.config.renewal_graceperiod, '10'}
+    S3_URI: ${self:custom.config.s3_uri}
   deploymentBucket: ${self:custom.config.deployment_bucket}
   iamRoleStatements:
     -  Effect: "Allow"
        Action:
          - "acm:DescribeCertificate"
          - "acm:ImportCertificate"
+       Resource: ${self:custom.config.certificate_arn}
+    -  Effect: "Allow"
+       Action:
+         - "s3:PutObject"
+       Resource: arn:aws:s3:::${self:custom.config.s3_uri}/*
+
+
       
 functions:
   import:
