@@ -1,3 +1,6 @@
+# service name
+service: 
+
 # credential for dns servert
 credential: 
 

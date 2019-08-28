@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: aws-create-wildcard-cert
+service: ${self:custom.config.service}
 
 plugins:
   - serverless-python-requirements
