@@ -67,13 +67,15 @@ def run():
         cert = readit('cert')
         chain = readit('chain')
         privkey = readit('privkey')
-
+        fullchain = readit('fullchain')
+        
         def upload_to_s3(thing):
             s3_client.upload_file('%s/live/%s/%s.pem' % (dir_name, domain_name, thing), s3_bucket, '%s/%s/%s.pem' % (s3_prefix, domain_name, thing))
 
         upload_to_s3('cert')
         upload_to_s3('chain')
         upload_to_s3('privkey')
+        upload_to_s3('fullchain')
         if not os.environ.get('STAGING'):
             response = client.import_certificate(CertificateArn=arn, Certificate=cert, PrivateKey=privkey, CertificateChain=chain)
     else:
