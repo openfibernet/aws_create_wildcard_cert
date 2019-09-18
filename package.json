@@ -7,7 +7,7 @@
   },
   "author": "dan aronson",
   "dependencies": {
-    "serverless": "^1.51.0",
+    "serverless": "^1.52.0",
     "serverless-python-requirements": "^5.0.0"
   }
 }
